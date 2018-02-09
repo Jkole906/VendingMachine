@@ -13,8 +13,9 @@ public class GetItem extends VendingMachine
 		// TODO Auto-generated constructor stub
 	}
 
-	public void getItem(String slotId) {
-		String selectedItem = getInventory.get(slotId).getName()
+	public void getItem(String slotId, VendingMachine machine) {
+		ItemsClass selectedItem = machine.getInventory().get(slotId).pop();
+		String itemName = selectedItem.getName();
 		
 	}
 	

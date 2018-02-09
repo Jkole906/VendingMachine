@@ -25,20 +25,6 @@ public class VendingMachine
 	public Stack<ItemsClass> dispence(String slotId) {
 		return inventory.get(slotId);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	public BigDecimal getBalance()
 	{

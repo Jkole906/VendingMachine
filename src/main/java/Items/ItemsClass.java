@@ -12,18 +12,6 @@ public abstract class ItemsClass
 		this.price = price;
 	}
 	
-	//Methods
-//	String Consume() {
-//		//Return specific itemSound
-//	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public String getName()
 	{
