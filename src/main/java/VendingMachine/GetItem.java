@@ -13,10 +13,11 @@ public class GetItem extends VendingMachine
 		// TODO Auto-generated constructor stub
 	}
 
-	public void getItem(String slotId, VendingMachine machine) {
+	public String getItem(String slotId) {
+		VendingMachine machine = new VendingMachine(getInventory());
 		ItemsClass selectedItem = machine.getInventory().get(slotId).pop();
 		String itemName = selectedItem.getName();
-		
+		return itemName;
 	}
 	
 	

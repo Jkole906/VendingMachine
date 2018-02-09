@@ -16,15 +16,18 @@ public class Menu {
 		this.in = new Scanner(input);
 	}
 
-	public Object getChoiceFromOptions(Object[] options) {
+	public Object getChoiceFromOptions(Object[] options, String message) {
 		Object choice = null;
 		while(choice == null) {
 			displayMenuOptions(options);
 			choice = getChoiceFromUserInput(options);
 		}
-		return choice;
+		return choice + message;
 	}
-
+	public Object getChoiceFromOptions(Object[] options) {
+		return getChoiceFromOptions( options, "");
+	}
+	
 	public BigDecimal getAmountFromUserInput() {
 		for(;;){
 			out.println();

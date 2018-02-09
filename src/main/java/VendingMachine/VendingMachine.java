@@ -9,7 +9,7 @@ import Items.ItemsClass;
 
 public class VendingMachine
 {
-	private BigDecimal balance;
+	private BigDecimal balance = new BigDecimal(0.00);
 	private Map<String, Stack<ItemsClass>> inventory;
 	private List<ItemsClass> itemBin;
 	
