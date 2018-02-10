@@ -1,8 +1,12 @@
 package VendingMachine;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Stack;
 
 import Items.ItemsClass;
@@ -18,8 +22,27 @@ public class VendingMachine
 		this.inventory = inventory;
 	}
 
-	
-	
+	public String inventoryDisplay(VendingMachine machine) throws FileNotFoundException {
+	File inventoryCSV = new File("vendingmachine.csv");
+	Map<String, Stack<ItemsClass>> inventory = new HashMap<>();
+	try (Scanner fileScanner = new Scanner(inventoryCSV))
+	{
+		while (fileScanner.hasNextLine())
+		{
+			String line = fileScanner.nextLine();
+			String[] lineArray = line.trim().split("\\|");
+			String mapLocation = lineArray[0];
+			String itemName = lineArray[1];
+			BigDecimal price = new BigDecimal(lineArray[2]);
+			int stackSize = machine.getInventory().get(mapLocation).size();
+
+			System.out.println(mapLocation + " | " + itemName + " | " + price + " | " + stackSize);
+		}return "";
+	}
+}
+			
+			
+			
 	
 //	public map inventoryDisplay(Map<String, Stack<ItemsClass>> inventory) {
 //		return inventory.entrySet();
