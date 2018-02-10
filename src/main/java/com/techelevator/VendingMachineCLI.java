@@ -6,60 +6,116 @@ import java.util.Scanner;
 
 import com.techelevator.view.Menu;
 
+import Items.ItemsClass;
+import VendingMachine.Change;
+import VendingMachine.DeliveryBin;
 import VendingMachine.InventoryReader;
 import VendingMachine.VendingMachine;
 
-public class VendingMachineCLI {
+public class VendingMachineCLI
+{
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS,
-													   MAIN_MENU_OPTION_PURCHASE };
+	private static final String[] MAIN_MENU_OPTIONS =
+	{ MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE };
 	private static final String SECOND_MENU_OPTION_FEED_MONEY = "Feed Money";
 	private static final String SECOND_MENU_OPTION_SELECT_PRODUCT = "Select Product";
 	private static final String SECOND_MENU_OPTION_FINISH_TRANSACTION = "Finish Transaction";
-	private String[] SECOND_MENU_OPTIONS = { SECOND_MENU_OPTION_FEED_MONEY, 
-														SECOND_MENU_OPTION_SELECT_PRODUCT,
-														SECOND_MENU_OPTION_FINISH_TRANSACTION,};	
-	
+	private String[] SECOND_MENU_OPTIONS =
+	{ SECOND_MENU_OPTION_FEED_MONEY, SECOND_MENU_OPTION_SELECT_PRODUCT, SECOND_MENU_OPTION_FINISH_TRANSACTION, };
+	private static final String[] THIRD_MENU_OPTION_LOCATION =
+	{ "A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4" };
 
-
-
-	
 	private Menu menu;
-	
-	public VendingMachineCLI(Menu menu) throws FileNotFoundException {
+
+	public VendingMachineCLI(Menu menu) throws FileNotFoundException
+	{
 		this.menu = menu;
 	}
-	
-	public void run() throws FileNotFoundException {
+
+	public void run() throws FileNotFoundException
+	{
 		InventoryReader inventoryReader = new InventoryReader();
 		VendingMachine vendOMatic = new VendingMachine(inventoryReader.generateInventory());
-		while(true) {
-			String choice = (String)menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-			if(choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				System.out.println(inventoryReader.generateInventory());
-			} else if(choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
+		DeliveryBin bin = new DeliveryBin();
+		while (true)
+		{
+			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS,
+					"Current balance is: $" + vendOMatic.getBalance() + ".");
+
+			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS))
+			{
+				System.out.println(vendOMatic.inventoryDisplay(vendOMatic.getInventory()));
+
+			}
+			else if (choice.equals(MAIN_MENU_OPTION_PURCHASE))
+			{
 				Scanner userInput = new Scanner(System.in);
-				String secondChoice = (String)menu.getChoiceFromOptions(SECOND_MENU_OPTIONS);
-				if(secondChoice.equals(SECOND_MENU_OPTION_FEED_MONEY)) {
+				String secondChoice = (String) menu.getChoiceFromOptions(SECOND_MENU_OPTIONS,
+						"Current balance is: $" + vendOMatic.getBalance() + ".");
+
+				if (secondChoice.equals(SECOND_MENU_OPTION_FEED_MONEY))
+				{
 					BigDecimal inputMoney = menu.getAmountFromUserInput();
 					vendOMatic.feedMoney(inputMoney);
-					if(secondChoice.equals(SECOND_MENU_OPTION_SELECT_PRODUCT)) {
-						System.out.println("Enter item key.");
-						Scanner locationKey = new Scanner(System.in);
-						String keyInput = locationKey.nextLine();
-						vendOMatic.getItem(keyInput);
+				}
+				else if (secondChoice.equals(SECOND_MENU_OPTION_SELECT_PRODUCT))
+				{
+					String keyInput = (String) menu.getChoiceFromOptions(THIRD_MENU_OPTION_LOCATION,
+							"Current balance is: $" + vendOMatic.getBalance() + ".");
+					int selectedStackSize = vendOMatic.getInventory().get(keyInput).size();
 
+					if (selectedStackSize > 0)
+					{
+						BigDecimal selectedItemPrice = vendOMatic.getInventory().get(keyInput).peek().getPrice();
+						if (selectedItemPrice.compareTo(vendOMatic.getBalance()) <= 0)
+						{
+							ItemsClass currentItem = vendOMatic.getInventory().get(keyInput).peek();
+							bin.addToDeliveryBin(currentItem);
+							vendOMatic.getInventory().get(keyInput).pop();
+							BigDecimal newBalance = vendOMatic.getBalance().subtract(selectedItemPrice);
+							vendOMatic.setBalance(newBalance);
+							System.out.println(vendOMatic.getInventory().get(keyInput).size());
+
+						}
+						else
+						{
+							System.out.println("Insuficient funds. You broke-ass buster.");
+						}
 					}
+					// Check to see if the Stack has items left
+
+					else if (selectedStackSize == 0)
+					{
+						System.out.println("SOLD OUT");
+					}
+				}
+				
+				else if(secondChoice.equals(SECOND_MENU_OPTION_FINISH_TRANSACTION)) {
+					//Consume
+					for(ItemsClass binTest : bin.getDeliveryBin()) {
+						System.out.println(binTest.getName() + ": " + binTest.makeSound());
+					}
+					BigDecimal remainingBalance = vendOMatic.getBalance();
+					Change returnedChange = new Change();
+					
+					String finalChange = returnedChange.makeChange(remainingBalance);
+					System.out.println(finalChange);
 					
 					
+					
+					
+//					empty bin
+//					makeChnage
+//					
 				}
 			}
 		}
 	}
-	
-	public static void main(String[] args) throws FileNotFoundException {
+
+	public static void main(String[] args) throws FileNotFoundException
+	{
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();

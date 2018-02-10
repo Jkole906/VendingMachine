@@ -19,6 +19,13 @@ public class VendingMachine
 	}
 
 	
+	
+	
+//	public map inventoryDisplay(Map<String, Stack<ItemsClass>> inventory) {
+//		return inventory.entrySet();
+//	}
+	
+	
 	public void feedMoney(BigDecimal inputMoney) {
 		balance = balance.add(inputMoney);
 	}

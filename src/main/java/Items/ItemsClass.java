@@ -6,12 +6,18 @@ public abstract class ItemsClass
 {
 	private String name;
 	private BigDecimal price;
+	public abstract String makeSound();
+	
 	
 	public ItemsClass(String name, BigDecimal price) {
 		this.name = name;
 		this.price = price;
 	}
 	
+	
+	public String getSound() {
+		return makeSound();
+	}
 	
 	public String getName()
 	{

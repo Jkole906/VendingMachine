@@ -4,32 +4,29 @@ import java.math.BigDecimal;
 
 public class Change
 
-{
-	
-	
-	private BigDecimal balance;
-
-	
-	
+{	
+	public Change() {
+		
+	}
 	//Methods
-	public BigDecimal makeChange() {
+	public String makeChange(BigDecimal balance) {
 		int quarterCounter = 0;
 		int dimeCounter = 0;
 		int nickelCounter = 0;
-		while(balance.compareTo(new BigDecimal (0.00)) >0) {
-		if(balance.compareTo(new BigDecimal (0.25)) >0) {
-			balance.subtract(new BigDecimal (0.25));
+		while(balance.compareTo(new BigDecimal ("0.00")) >0) {
+		if(balance.compareTo(new BigDecimal ("0.25")) >=0) {
+			balance = balance.subtract(new BigDecimal ("0.25"));
 			quarterCounter++;
-		}else if(balance.compareTo(new BigDecimal (0.10)) >0) {
-				balance.subtract(new BigDecimal (0.10));
+		}else if(balance.compareTo(new BigDecimal ("0.10")) >=0) {
+			balance = balance.subtract(new BigDecimal ("0.10"));
 				dimeCounter++;
-		}else if(balance.compareTo(new BigDecimal (0.5)) >0) {
-			balance.subtract(new BigDecimal (0.5));
+		}else if(balance.compareTo(new BigDecimal ("0.05")) >=0) {
+			balance = balance.subtract(new BigDecimal ("0.05"));
 			nickelCounter++;
+		}else {
+			balance = new BigDecimal ("0.00");
 		}
 		}
-			System.out.println("Your change is " + quarterCounter + " quarters, " + dimeCounter + " dimes, " + nickelCounter + " nickels.");
-			balance = new BigDecimal (0.00);
-			return balance;
-		}
+			return "Your change is: " + quarterCounter + " quarter(s), " + dimeCounter + " dime(s), and " + nickelCounter + " nicklel(s).";
 	}
+}

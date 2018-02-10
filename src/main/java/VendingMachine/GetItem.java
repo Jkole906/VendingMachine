@@ -15,8 +15,7 @@ public class GetItem extends VendingMachine
 
 	public String getItem(String slotId) {
 		VendingMachine machine = new VendingMachine(getInventory());
-		ItemsClass selectedItem = machine.getInventory().get(slotId).pop();
-		String itemName = selectedItem.getName();
+		String itemName = machine.getInventory().get(slotId).peek().getName();
 		return itemName;
 	}
 	

@@ -20,9 +20,11 @@ public class Menu {
 		Object choice = null;
 		while(choice == null) {
 			displayMenuOptions(options);
+			out.println(message);
+			out.flush();
 			choice = getChoiceFromUserInput(options);
 		}
-		return choice + message;
+		return choice;
 	}
 	public Object getChoiceFromOptions(Object[] options) {
 		return getChoiceFromOptions( options, "");
@@ -31,12 +33,14 @@ public class Menu {
 	public BigDecimal getAmountFromUserInput() {
 		for(;;){
 			out.println();
-			out.print("Please enter an amount >>>");
+			out.print("Please enter number of whole dollars >>>");
 			out.flush();
 
 			String userInput = in.nextLine();
 			try {
-				return new BigDecimal(userInput).setScale(2);
+				int userInputInt = Integer.parseInt(userInput);
+				if(userInputInt % 1 == 0) {
+				return new BigDecimal(userInput).setScale(2);}
 			} catch(NumberFormatException ex) {
 				out.println("Please enter a valid number.");
 				out.println();
@@ -45,7 +49,9 @@ public class Menu {
 		}
 	}
 
-	private Object getChoiceFromUserInput(Object[] options) {
+	public Object getChoiceFromUserInput(Object[] options) {
+		out.print("\nPlease choose an option >>> ");
+		out.flush();
 		Object choice = null;
 		String userInput = in.nextLine();
 		try {
@@ -68,7 +74,6 @@ public class Menu {
 			int optionNum = i+1;
 			out.println(optionNum+") "+options[i]);
 		}
-		out.print("\nPlease choose an option >>> ");
 		out.flush();
 	}
 }
