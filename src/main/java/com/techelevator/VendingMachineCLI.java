@@ -40,6 +40,7 @@ public class VendingMachineCLI
 		InventoryReader inventoryReader = new InventoryReader();
 		VendingMachine vendOMatic = new VendingMachine(inventoryReader.generateInventory());
 		DeliveryBin bin = new DeliveryBin();
+		//LogWriter.checkLogFile("Log.txt");
 		while (true)
 		{
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS,
@@ -50,7 +51,7 @@ public class VendingMachineCLI
 				System.out.println(vendOMatic.inventoryDisplay(vendOMatic));
 
 			}
-			else if (choice.equals(MAIN_MENU_OPTION_PURCHASE))
+			if (choice.equals(MAIN_MENU_OPTION_PURCHASE))
 			{
 				Scanner userInput = new Scanner(System.in);
 				String secondChoice = (String) menu.getChoiceFromOptions(SECOND_MENU_OPTIONS,
@@ -104,13 +105,7 @@ public class VendingMachineCLI
 					
 					String finalChange = returnedChange.makeChange(remainingBalance);
 					System.out.println(finalChange);
-					
-					
-					
-					
-//					empty bin
-//					makeChnage
-//					
+									
 				}
 			}
 		}
