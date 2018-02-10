@@ -20,11 +20,13 @@ public class VendingMachineCLI
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String[] MAIN_MENU_OPTIONS =
 	{ MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE };
+	
 	private static final String SECOND_MENU_OPTION_FEED_MONEY = "Feed Money";
 	private static final String SECOND_MENU_OPTION_SELECT_PRODUCT = "Select Product";
 	private static final String SECOND_MENU_OPTION_FINISH_TRANSACTION = "Finish Transaction";
 	private String[] SECOND_MENU_OPTIONS =
 	{ SECOND_MENU_OPTION_FEED_MONEY, SECOND_MENU_OPTION_SELECT_PRODUCT, SECOND_MENU_OPTION_FINISH_TRANSACTION, };
+	
 	private static final String[] THIRD_MENU_OPTION_LOCATION =
 	{ "A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4" };
 
@@ -41,17 +43,23 @@ public class VendingMachineCLI
 		VendingMachine vendOMatic = new VendingMachine(inventoryReader.generateInventory());
 		DeliveryBin bin = new DeliveryBin();
 		//LogWriter.checkLogFile("Log.txt");
-		while (true)
+		
+		String choice = "";
+		boolean vendingMachineOn = true;
+		
+		while (vendingMachineOn)
 		{
-			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS,
-					"Current balance is: $" + vendOMatic.getBalance() + ".");
+			if (choice == "") {
+				choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS,
+						"Current balance is: $" + vendOMatic.getBalance() + ".");
+			}
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS))
 			{
 				System.out.println(vendOMatic.inventoryDisplay(vendOMatic));
 
 			}
-			if (choice.equals(MAIN_MENU_OPTION_PURCHASE))
+			else if (choice.equals(MAIN_MENU_OPTION_PURCHASE))
 			{
 				Scanner userInput = new Scanner(System.in);
 				String secondChoice = (String) menu.getChoiceFromOptions(SECOND_MENU_OPTIONS,
@@ -105,7 +113,7 @@ public class VendingMachineCLI
 					
 					String finalChange = returnedChange.makeChange(remainingBalance);
 					System.out.println(finalChange);
-									
+					vendingMachineOn = false;
 				}
 			}
 		}
