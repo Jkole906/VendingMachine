@@ -10,6 +10,7 @@ import Items.ItemsClass;
 import VendingMachine.Change;
 import VendingMachine.DeliveryBin;
 import VendingMachine.InventoryReader;
+import VendingMachine.LogWriter;
 import VendingMachine.VendingMachine;
 
 public class VendingMachineCLI
@@ -76,7 +77,8 @@ public class VendingMachineCLI
 							vendOMatic.getInventory().get(keyInput).pop();
 							BigDecimal newBalance = vendOMatic.getBalance().subtract(selectedItemPrice);
 							vendOMatic.setBalance(newBalance);
-							System.out.println(vendOMatic.getInventory().get(keyInput).size());
+							//System.out.println(vendOMatic.getInventory().get(keyInput).size());
+							LogWriter.newLogEntry(currentItem.getName() + " "+ keyInput + " " + selectedItemPrice + " " + vendOMatic.getBalance());
 
 						}
 						else

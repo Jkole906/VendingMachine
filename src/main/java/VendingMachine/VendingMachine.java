@@ -51,6 +51,7 @@ public class VendingMachine
 	
 	public void feedMoney(BigDecimal inputMoney) {
 		balance = balance.add(inputMoney);
+		
 	}
 	public Stack<ItemsClass> dispence(String slotId) {
 		return inventory.get(slotId);
