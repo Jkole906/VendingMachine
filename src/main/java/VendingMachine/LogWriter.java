@@ -29,7 +29,4 @@ public class LogWriter
 		
 	}
 	
-	private void checkLogFile() {
-		
-	}
 }

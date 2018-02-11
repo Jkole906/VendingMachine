@@ -25,11 +25,7 @@ public class ChangeTest
 	@Test
 	public void testMakeChange()
 	{
-
+		assertEquals("Your change is: 4 quarter(s), 0 dime(s), and 0 nicklel(s).", testChange.makeChange(new BigDecimal("1")));
 	}
-
-	
-	
-	
 	
 }
