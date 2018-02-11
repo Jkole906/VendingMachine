@@ -30,7 +30,7 @@ public class Change
 				balance = new BigDecimal ("0.00");
 			}
 		}
-			LogWriter.newLogEntry("GIVE CHANGE: " + changeBalance + " " + balance);
+			LogWriter.newLogEntry("GIVE CHANGE: $" + changeBalance + " $" + balance);
 			return "Your change is: " + quarterCounter + " quarter(s), " + dimeCounter + " dime(s), and " + nickelCounter + " nicklel(s).";
 	}
 }

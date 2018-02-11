@@ -57,6 +57,7 @@ public class VendingMachineCLI
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS))
 			{
 				System.out.println(vendOMatic.inventoryDisplay(vendOMatic));
+				choice = "";
 
 			}
 			else if (choice.equals(MAIN_MENU_OPTION_PURCHASE))
@@ -69,6 +70,7 @@ public class VendingMachineCLI
 				{
 					BigDecimal inputMoney = menu.getAmountFromUserInput();
 					vendOMatic.feedMoney(inputMoney);
+					LogWriter.newLogEntry("FEED MONEY: $" + inputMoney + " $" + vendOMatic.getBalance());
 				}
 				else if (secondChoice.equals(SECOND_MENU_OPTION_SELECT_PRODUCT))
 				{

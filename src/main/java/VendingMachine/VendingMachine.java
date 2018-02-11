@@ -13,7 +13,7 @@ import Items.ItemsClass;
 
 public class VendingMachine
 {
-	private BigDecimal balance = new BigDecimal(0.00);
+	private BigDecimal balance = new BigDecimal("0.00");
 	private Map<String, Stack<ItemsClass>> inventory;
 	private List<ItemsClass> itemBin;
 	
@@ -37,7 +37,8 @@ public class VendingMachine
 			int stackSize = machine.getInventory().get(mapLocation).size();
 
 			System.out.println(mapLocation + " | " + itemName + " | " + price + " | " + stackSize);
-		}return "";
+		}
+		return "";
 	}
 }
 			
