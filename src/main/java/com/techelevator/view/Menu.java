@@ -39,7 +39,7 @@ public class Menu {
 			String userInput = in.nextLine();
 			try {
 				int userInputInt = Integer.parseInt(userInput);
-				if(userInputInt % 1 == 0) {
+				if(userInputInt % 1 == 0 && (userInputInt >= 1)) {
 				return new BigDecimal(userInput).setScale(2);}
 			} catch(NumberFormatException ex) {
 				out.println("Please enter a valid number.");
